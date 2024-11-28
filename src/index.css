@@ -1,0 +1,62 @@
+body {
+    text-align: center;
+    margin-top: 25vh;
+    background-color: #ffb477;
+}
+
+.mainContainer {
+    margin: 0 auto;
+    max-width: 500px;
+    min-height: 35vh;
+    max-height: 40vh;
+    background-color: #ff975a;
+    border: none;
+    border-radius: 40px;
+    box-shadow: 1px 1px 100px 1px #916448;
+    transition: all 0.2s ease-in-out;
+}
+
+.InnerHeader {
+    padding-top: 30px;
+    font-family: Arial, sans-serif;
+    font-size: 48px;
+    color: #644431;
+}
+
+.inputs {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    padding-left: 20px;
+    min-height: 30px;
+    min-width: 250px;
+    border: none;
+    border-radius: 15px;
+    margin: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.labels {
+    font-family: Arial, sans-serif;
+    color: #4d2e18;
+}
+
+.LogBtn {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #673316;
+    background-color: #ff6d18;
+    margin-top: 5px;
+    border: none;
+    border-radius: 50px;
+    min-width: 90px;
+    min-height: 40px;
+    transition: all 0.2s ease-in-out;
+}
+
+.inputs:focus {
+    transform: scale(105%);
+    outline: 0;
+    outline-offset: 0;
+}
+
