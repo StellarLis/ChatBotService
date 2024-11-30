@@ -1,6 +1,5 @@
 package ru.andrew.testapi.config;
 
-import com.auth0.jwt.exceptions.JWTDecodeException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,8 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.andrew.testapi.service.JwtService;
-import ru.andrew.testapi.service.UserService;
+import ru.andrew.testapi.service.interfaces.JwtService;
+import ru.andrew.testapi.repository.repo_service.UserService;
 
 import java.io.IOException;
 
@@ -43,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String username;
         try {
             username = jwtService.extractUsername(jwt);
-        } catch (JWTDecodeException e) {
+        } catch (Exception e) {
             response.setStatus(401);
             return;
         }
