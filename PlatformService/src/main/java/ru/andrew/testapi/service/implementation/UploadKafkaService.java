@@ -12,7 +12,7 @@ public class UploadKafkaService implements UploadService {
     private final DocumentRepositorySQL documentRepository;
 
     @Override
-    public void upload(String fileType, MultipartFile multipartFile) throws Exception {
-        // TODO: do this service
+    public void upload(MultipartFile multipartFile) throws Exception {
+        // TODO: implement this service
     }
 }

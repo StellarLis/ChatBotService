@@ -3,11 +3,14 @@ package ru.andrew.testapi.repository.repo_service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import ru.andrew.testapi.model.repo_model.User;
+import ru.andrew.testapi.model.interfaces.DatabaseUser;
+import ru.andrew.testapi.model.service_model.ServiceUser;
 
 public interface UserService extends UserDetailsService {
-    User getByUsername(String username);
-    User getCurrentUser();
+    DatabaseUser getByUsername(String username);
+    DatabaseUser getCurrentUser();
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
-    void getAdmin();
+    DatabaseUser save(ServiceUser user);
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
 }

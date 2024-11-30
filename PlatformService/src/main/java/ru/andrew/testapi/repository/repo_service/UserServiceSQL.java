@@ -2,10 +2,12 @@ package ru.andrew.testapi.repository.repo_service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.andrew.testapi.model.repo_model.Role;
-import ru.andrew.testapi.model.repo_model.User;
+import ru.andrew.testapi.model.interfaces.DatabaseUser;
+import ru.andrew.testapi.model.repo_model.UserSQL;
+import ru.andrew.testapi.model.service_model.ServiceUser;
 import ru.andrew.testapi.repository.UserRepositorySQL;
 
 @Service
@@ -13,24 +15,38 @@ import ru.andrew.testapi.repository.UserRepositorySQL;
 public class UserServiceSQL implements UserService {
     private final UserRepositorySQL userRepository;
 
-    public User getByUsername(String username) {
+    public DatabaseUser getByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
     }
 
-    public User getCurrentUser() {
+    public DatabaseUser getCurrentUser() {
         var username = SecurityContextHolder.getContext().getAuthentication().getName();
         return getByUsername(username);
     }
 
     @Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return getByUsername(username);
     }
 
-    public void getAdmin() {
-        User user = getCurrentUser();
-        user.setRole(Role.ROLE_COMPANY_MEMBER);
-        userRepository.save(user);
+    @Override
+    public DatabaseUser save(ServiceUser user) {
+        UserSQL dbUser = UserSQL.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .email(user.getEmail())
+                .role(user.getRole()).build();
+        return userRepository.save(dbUser);
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
 }

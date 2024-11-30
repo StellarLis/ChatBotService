@@ -4,10 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import ru.andrew.testapi.model.interfaces.DatabaseDocument;
+import ru.andrew.testapi.model.interfaces.DatabaseUser;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -16,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-public class User implements UserDetails {
+public class UserSQL implements DatabaseUser {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +37,13 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private Set<DocumentSQL> documents;
+
+    public Set<DatabaseDocument> getDocuments() {
+        return new HashSet<>(documents);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

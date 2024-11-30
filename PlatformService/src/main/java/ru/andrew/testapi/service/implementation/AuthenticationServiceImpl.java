@@ -5,10 +5,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.andrew.testapi.model.interfaces.DatabaseUser;
 import ru.andrew.testapi.model.repo_model.Role;
-import ru.andrew.testapi.model.repo_model.User;
 import ru.andrew.testapi.model.service_model.ServiceUser;
-import ru.andrew.testapi.repository.UserRepositorySQL;
 import ru.andrew.testapi.service.interfaces.AuthenticationService;
 import ru.andrew.testapi.service.interfaces.JwtService;
 import ru.andrew.testapi.repository.repo_service.UserService;
@@ -16,7 +15,6 @@ import ru.andrew.testapi.repository.repo_service.UserService;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
-    private final UserRepositorySQL userRepository;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
@@ -27,26 +25,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             String password,
             String email
     ) throws Exception {
-        User user = User.builder()
+        ServiceUser serviceUser = ServiceUser.builder()
                 .username(username)
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .role(Role.ROLE_USER)
                 .build();
-        if (userRepository.existsByUsername(user.getUsername())) {
+        if (userService.existsByUsername(serviceUser.getUsername())) {
             throw new RuntimeException("Пользователь с таким именем уже существует");
         }
 
-        if (userRepository.existsByEmail(user.getEmail())) {
+        if (userService.existsByEmail(serviceUser.getEmail())) {
             throw new RuntimeException("Пользователь с таким email уже существует");
         }
-        userRepository.save(user);
-        ServiceUser serviceUser = ServiceUser.builder()
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .email(user.getEmail())
-                .role(user.getRole())
-                .build();
+        DatabaseUser dbUser = userService.save(serviceUser);
+        serviceUser.setId(dbUser.getId());
         return jwtService.generateToken(serviceUser);
     }
 
@@ -58,12 +51,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 username,
                 password
         ));
-        User user = userService.getByUsername(username);
+        DatabaseUser user = userService.getByUsername(username);
         ServiceUser serviceUser = ServiceUser.builder()
+                .id(user.getId())
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .email(user.getEmail())
                 .role(user.getRole())
+                .documents(user.getDocuments())
                 .build();
         String token = jwtService.generateToken(serviceUser);
         return token;
