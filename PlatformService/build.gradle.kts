@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("java-library")
 }
 
 group = "ru.andrew"
@@ -26,8 +27,23 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.34")
     annotationProcessor("org.projectlombok:lombok:1.18.34")
     implementation("com.auth0:java-jwt:4.4.0")
+    implementation("org.springframework.amqp:spring-rabbit:3.2.0")
+
 }
 
 tasks.test {
     useJUnitPlatform()
+}
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "ru.andrew.testapi.Application"
+    }
+    from({
+        configurations.runtimeClasspath.get().map {
+            if (it.isDirectory) it
+            else zipTree(it)
+        }
+    }) {
+        exclude("META-INF/*.txt")
+    }
 }
