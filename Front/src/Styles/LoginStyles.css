@@ -1,11 +1,10 @@
 body {
-    text-align: center;
-    margin-top: 25vh;
     background-color: #ffb477;
 }
 
 .mainContainer {
-    margin: 0 auto;
+    text-align: center;
+    margin: 25vh auto;
     max-width: 500px;
     min-height: 35vh;
     max-height: 40vh;
@@ -38,6 +37,7 @@ body {
 .labels {
     font-family: Arial, sans-serif;
     color: #4d2e18;
+    font-weight: bold;
 }
 
 .LogBtn {
@@ -51,12 +51,24 @@ body {
     border-radius: 50px;
     min-width: 90px;
     min-height: 40px;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+
+.LogBtn:hover {
+    background-color: #ffb477;
+    color: #ff6d18;
+    transform: scale(105%);
+    box-shadow: 1px 1px 10px 1px #ff6d18;
+}
+
+.LogBtn:active {
+    transform: scale(95%);
 }
 
 .inputs:focus {
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 1px white;
     transform: scale(105%);
     outline: 0;
     outline-offset: 0;
 }
-

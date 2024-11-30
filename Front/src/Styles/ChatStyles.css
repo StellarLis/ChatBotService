@@ -1,0 +1,77 @@
+body {
+    background-color: #ffb477;
+}
+
+.chatContainer {
+    position: relative;
+    box-shadow: 1px 1px 30px 1px #622a00 inset;
+    border-radius: 40px;
+    margin: 5vh auto;
+    max-width: 50vw;
+    min-height: 90vh;
+    background-color: #ffc28d;
+}
+
+.inputArea {
+    font-family: Arial, sans-serif;
+    color: #572a17;
+    font-size: 20px;
+    padding-left: 30px;
+    background-color: #ff9149;
+    border: none;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 0;
+    min-height: 7vh;
+    min-width: 46vw;
+    box-shadow: 1px 1px 5px 1px #622a00 inset;
+}
+
+.inputArea:focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+.EnterBtn {
+    background-color: #ff6d18;
+    color: #613309;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    min-width: 7vw;
+    max-width: 7vw;
+    border: none;
+    border-radius: 25px;
+    min-height: 7.2vh;
+    transition: all 0.1s ease-in-out;
+}
+
+.ClearBtn {
+    border: none;
+    border-radius: 30px;
+    min-width: 70px;
+    min-height: 25px;
+    color: #613309;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    background-color: #ff6d18;
+    position: absolute;
+    bottom: 8vh;
+    left: 24vw;
+    transition: all 0.1s ease-in-out;
+}
+
+.EnterBtn:hover {
+    background-color: #ffa456;
+}
+
+.ClearBtn:hover {
+    background-color: #ffa456;
+    transform: scale(103%);
+}
+
+.ClearBtn:active {
+    transform: scale(95%);
+}
