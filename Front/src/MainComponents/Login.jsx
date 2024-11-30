@@ -1,3 +1,4 @@
+import "../Styles/LoginStyles.css"
 
 function Form() {
 
