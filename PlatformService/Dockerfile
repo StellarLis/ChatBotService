@@ -1,4 +1,5 @@
-FROM openjdk:17.0.2-jdk-slim-buster
+FROM openjdk:24-jdk
 WORKDIR /app
 COPY build .
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "libs/PlatformService-1.0-SNAPSHOT.jar"]

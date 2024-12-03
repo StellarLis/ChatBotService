@@ -1,7 +1,6 @@
 package ru.andrew.testapi.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -9,19 +8,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.View;
 import ru.andrew.testapi.dto.AppErrorResponse;
 import ru.andrew.testapi.dto.JwtAuthenticationResponse;
 import ru.andrew.testapi.dto.SignInRequest;
 import ru.andrew.testapi.dto.SignUpRequest;
-import ru.andrew.testapi.service.AuthenticationService;
-
-import java.util.List;
+import ru.andrew.testapi.service.implementation.AuthenticationServiceImpl;
+import ru.andrew.testapi.service.interfaces.AuthenticationService;
 
 @RestController
 @RequestMapping("/auth")
@@ -37,10 +33,20 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
             AppErrorResponse response = new AppErrorResponse(400, errorMessage);
-            return new ResponseEntity<>(response, HttpStatusCode.valueOf(400));
+            return new ResponseEntity<>(response, HttpStatusCode.valueOf(response.getStatusCode()));
         }
-        JwtAuthenticationResponse response = authenticationService.signUp(request);
-        return new ResponseEntity<>(response, HttpStatusCode.valueOf(200));
+        try {
+            String token = authenticationService.signUp(
+                    request.getUsername(),
+                    request.getPassword(),
+                    request.getEmail()
+            );
+            JwtAuthenticationResponse response = new JwtAuthenticationResponse(token);
+            return new ResponseEntity<>(response, HttpStatusCode.valueOf(200));
+        } catch (Exception e) {
+            AppErrorResponse response = new AppErrorResponse(400, e.getMessage());
+            return new ResponseEntity<>(response, HttpStatusCode.valueOf(response.getStatusCode()));
+        }
     }
 
     @Operation(summary = "Авторизация пользователя")
@@ -53,7 +59,16 @@ public class AuthController {
                     "Невалидные имя пользователя или пароль");
             return new ResponseEntity<>(response, HttpStatusCode.valueOf(400));
         }
-        JwtAuthenticationResponse response = authenticationService.signIn(request);
-        return new ResponseEntity<>(response, HttpStatusCode.valueOf(200));
+        try {
+            String token = authenticationService.signIn(
+                    request.getUsername(),
+                    request.getPassword()
+            );
+            JwtAuthenticationResponse response = new JwtAuthenticationResponse(token);
+            return new ResponseEntity<>(response, HttpStatusCode.valueOf(200));
+        } catch (Exception e) {
+            AppErrorResponse response = new AppErrorResponse(400, e.getMessage());
+            return new ResponseEntity<>(response, HttpStatusCode.valueOf(response.getStatusCode()));
+        }
     }
 }

@@ -1,11 +1,11 @@
 package ru.andrew.testapi.config;
 
-import com.auth0.jwt.exceptions.JWTDecodeException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
@@ -14,13 +14,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.andrew.testapi.service.JwtService;
-import ru.andrew.testapi.service.UserService;
+import ru.andrew.testapi.service.interfaces.JwtService;
+import ru.andrew.testapi.repository.repo_service.UserService;
 
 import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public static final String BEARER_PREFIX = "Bearer ";
     public static final String HEADER_NAME = "Authorization";
@@ -43,8 +44,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String username;
         try {
             username = jwtService.extractUsername(jwt);
-        } catch (JWTDecodeException e) {
-            response.setStatus(401);
+        } catch (Exception e) {
+            response.setStatus(403);
             return;
         }
 
