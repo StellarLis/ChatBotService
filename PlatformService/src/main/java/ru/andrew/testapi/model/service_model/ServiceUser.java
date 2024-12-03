@@ -18,4 +18,5 @@ public class ServiceUser {
     private String email;
     private Role role;
     private Set<DatabaseDocument> documents;
+    private String companyName;
 }

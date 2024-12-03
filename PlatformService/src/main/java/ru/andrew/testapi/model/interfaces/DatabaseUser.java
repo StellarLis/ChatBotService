@@ -17,4 +17,7 @@ public interface DatabaseUser extends UserDetails {
     Role getRole();
     void setRole(Role role);
     Set<DatabaseDocument> getDocuments();
+    void setDocuments(Set<DatabaseDocument> documents);
+    String getCompanyName();
+    void setCompanyName(String companyName);
 }

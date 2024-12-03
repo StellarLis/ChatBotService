@@ -12,11 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.andrew.testapi.dto.AppErrorResponse;
-import ru.andrew.testapi.dto.JwtAuthenticationResponse;
-import ru.andrew.testapi.dto.SignInRequest;
-import ru.andrew.testapi.dto.SignUpRequest;
-import ru.andrew.testapi.service.implementation.AuthenticationServiceImpl;
+import ru.andrew.testapi.dto.*;
 import ru.andrew.testapi.service.interfaces.AuthenticationService;
 
 @RestController
@@ -71,4 +67,19 @@ public class AuthController {
             return new ResponseEntity<>(response, HttpStatusCode.valueOf(response.getStatusCode()));
         }
     }
+
+    @Operation(summary = "Улучшение аккаунта пользователя до сотрудника компании")
+    @PostMapping("/upgrade-account")
+    public ResponseEntity<?> upgradeAccount(
+            @RequestBody UpgradeRequest request
+    ) {
+        try {
+            authenticationService.upgradeAccount(request.getCompanyName());
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            AppErrorResponse response = new AppErrorResponse(400, e.getMessage());
+            return new ResponseEntity<>(response, HttpStatusCode.valueOf(response.getStatusCode()));
+        }
+    }
+
 }

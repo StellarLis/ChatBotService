@@ -6,8 +6,6 @@ public interface AuthenticationService {
             String password,
             String email
     ) throws Exception;
-    String signIn(
-            String username,
-            String password
-    ) throws Exception;
+    String signIn(String username, String password) throws Exception;
+    void upgradeAccount(String companyName) throws Exception;
 }

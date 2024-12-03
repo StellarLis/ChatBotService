@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import ru.andrew.testapi.dto.AppErrorResponse;
-import ru.andrew.testapi.dto.FileUploadRequest;
 import ru.andrew.testapi.service.interfaces.UploadService;
 
 @RestController

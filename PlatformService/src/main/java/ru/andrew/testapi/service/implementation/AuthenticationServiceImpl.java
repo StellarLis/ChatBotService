@@ -52,15 +52,28 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 password
         ));
         DatabaseUser user = userService.getByUsername(username);
-        ServiceUser serviceUser = ServiceUser.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .email(user.getEmail())
-                .role(user.getRole())
-                .documents(user.getDocuments())
-                .build();
+        ServiceUser serviceUser = toServiceUser(user);
         String token = jwtService.generateToken(serviceUser);
         return token;
+    }
+
+    @Override
+    public void upgradeAccount(String companyName) throws Exception {
+        DatabaseUser dbUser = userService.getCurrentUser();
+        dbUser.setRole(Role.ROLE_COMPANY_MEMBER);
+        dbUser.setCompanyName(companyName);
+        ServiceUser serviceUser = toServiceUser(dbUser);
+        userService.update(serviceUser);
+    }
+
+    private ServiceUser toServiceUser(DatabaseUser databaseUser) {
+        return ServiceUser.builder()
+                .id(databaseUser.getId())
+                .username(databaseUser.getUsername())
+                .password(databaseUser.getPassword())
+                .email(databaseUser.getEmail())
+                .documents(databaseUser.getDocuments())
+                .role(databaseUser.getRole())
+                .companyName(databaseUser.getCompanyName()).build();
     }
 }

@@ -41,8 +41,19 @@ public class UserSQL implements DatabaseUser {
     @OneToMany(mappedBy = "user")
     private Set<DocumentSQL> documents;
 
+    @Column(name = "company_name")
+    private String companyName;
+
     public Set<DatabaseDocument> getDocuments() {
         return new HashSet<>(documents);
+    }
+
+    public void setDocuments(Set<DatabaseDocument> documents) {
+        HashSet<DocumentSQL> result = new HashSet<>();
+        for (DatabaseDocument document : documents) {
+            result.add((DocumentSQL) document);
+        }
+        this.documents = result;
     }
 
     @Override

@@ -40,6 +40,11 @@ public class UserServiceSQL implements UserService {
         return userRepository.save(dbUser);
     }
 
+    public void update(ServiceUser user) {
+        UserSQL dbUser = toDbUser(user);
+        userRepository.save(dbUser);
+    }
+
     @Override
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
@@ -48,5 +53,17 @@ public class UserServiceSQL implements UserService {
     @Override
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    private UserSQL toDbUser(ServiceUser serviceUser) {
+        UserSQL dbUser = UserSQL.builder()
+                .id(serviceUser.getId())
+                .username(serviceUser.getUsername())
+                .password(serviceUser.getPassword())
+                .email(serviceUser.getEmail())
+                .role(serviceUser.getRole())
+                .companyName(serviceUser.getCompanyName()).build();
+        dbUser.setDocuments(serviceUser.getDocuments());
+        return dbUser;
     }
 }

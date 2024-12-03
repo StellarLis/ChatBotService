@@ -55,7 +55,8 @@ public class SecurityConfiguration {
                     return corsConfiguration;
                 }))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/auth/sign-in", "/auth/sign-up").permitAll()
+                        .requestMatchers("/auth/upgrade-account").authenticated()
                         .requestMatchers("/swagger-ui/**", "/swagger-resources/*", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/ai/upload-file").hasRole("COMPANY_MEMBER")
                         .anyRequest().authenticated())
