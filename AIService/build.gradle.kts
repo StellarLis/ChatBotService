@@ -1,7 +1,5 @@
 plugins {
     id("java")
-    id("java-library")
-    id("org.springframework.boot") version "3.4.0"
 }
 
 group = "ru.andrew"
@@ -9,7 +7,6 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    gradlePluginPortal()
 }
 
 dependencies {
@@ -19,7 +16,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter:3.3.5")
     implementation("org.springframework.boot:spring-boot-starter-actuator:3.3.5")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.3.5")
-    //implementation("org.springframework.boot:spring-boot-starter-data-mongodb:3.3.5")
     implementation("org.springframework.boot:spring-boot-starter-validation:3.3.5")
     implementation("org.springframework.boot:spring-boot-starter-security:3.3.5")
     implementation("io.jsonwebtoken:jjwt-api:0.12.6")
@@ -32,10 +28,8 @@ dependencies {
     implementation("com.auth0:java-jwt:4.4.0")
     implementation("org.springframework.amqp:spring-rabbit:3.2.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.4.0")
-
 }
 
 tasks.test {
     useJUnitPlatform()
 }
-// ./gradlew bootJar

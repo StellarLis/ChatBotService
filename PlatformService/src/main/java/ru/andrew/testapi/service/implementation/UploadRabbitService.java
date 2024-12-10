@@ -19,9 +19,7 @@ import ru.andrew.testapi.service.interfaces.UploadService;
 public class UploadRabbitService implements UploadService {
     private final RabbitTemplate rabbitTemplate;
     private final UserService userService;
-
-    @Autowired
-    private DocumentService documentService;
+    private final DocumentService documentService;
 
     public void upload(MultipartFile file) throws Exception {
         String fileType = UploadService.getFileType(file);
