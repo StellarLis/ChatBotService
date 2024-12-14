@@ -1,4 +1,4 @@
-package ru.andrew.testapi.repository.repo_service;
+package ru.andrew.AIService.repository.repo_service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: platform_service
+    name: ai_service
   datasource:
     url: jdbc:postgresql://${db_host}:5432/${db_name}
     username: postgres
@@ -12,11 +12,10 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
 
-token:
-  signing:
-    key: testko34krok430c12ioi
 rabbitmq:
   hostname: ${rabbit_hostname}
+server:
+  port: 8081

@@ -1,7 +1,7 @@
 package ru.andrew.AIService.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.andrew.testapi.model.repo_model.UserSQL;
+import ru.andrew.AIService.model.repo_model.UserSQL;
 
 import java.util.Optional;
 

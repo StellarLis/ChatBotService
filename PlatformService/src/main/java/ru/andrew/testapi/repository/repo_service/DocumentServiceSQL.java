@@ -1,4 +1,4 @@
-package ru.andrew.testapi.repository.repo_service;
+package ru.andrew.AIService.repository.repo_service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,7 +6,7 @@ import ru.andrew.testapi.model.interfaces.DatabaseDocument;
 import ru.andrew.testapi.model.repo_model.DocumentSQL;
 import ru.andrew.testapi.model.repo_model.UserSQL;
 import ru.andrew.testapi.model.service_model.ServiceDocument;
-import ru.andrew.testapi.repository.DocumentRepositorySQL;
+import ru.andrew.AIService.repository.DocumentRepositorySQL;
 
 @Service
 @RequiredArgsConstructor
