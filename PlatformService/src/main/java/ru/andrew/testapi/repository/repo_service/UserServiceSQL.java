@@ -1,4 +1,4 @@
-package ru.andrew.AIService.repository.repo_service;
+package ru.andrew.testapi.repository.repo_service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;

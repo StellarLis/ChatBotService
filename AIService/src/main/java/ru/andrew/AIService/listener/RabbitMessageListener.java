@@ -1,11 +1,11 @@
 package ru.andrew.AIService.listener;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ru.andrew.AIService.model.interfaces.DatabaseDocument;
+import ru.andrew.AIService.model.repo_model.DocumentStatus;
 import ru.andrew.AIService.repository.repo_service.DocumentService;
 import ru.andrew.AIService.service.interfaces.FileToTextConverterService;
 import ru.andrew.AIService.service.interfaces.TextSenderService;
@@ -49,9 +49,12 @@ public class RabbitMessageListener {
                     textSenderService.send(pdfText);
                     break;
             }
+            document.setStatus(DocumentStatus.PROCESSED_SUCCESSFULLY);
+            documentService.save(document);
         } catch (Exception e) {
             log.info("Exception!: " + e.getMessage());
+            document.setStatus(DocumentStatus.FAILED);
+            documentService.save(document);
         }
-
     }
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.andrew.testapi.service.implementation.AuthenticationServiceImplTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-12-10T12:08:23" hostname="Noutbuk-Andrew.local" time="0.594">
+<testsuite name="ru.andrew.testapi.service.implementation.AuthenticationServiceImplTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-12-27T17:00:16" hostname="Noutbuk-Andrew.local" time="0.609">
   <properties/>
-  <testcase name="signUp_everythingCorrect_returnsToken()" classname="ru.andrew.testapi.service.implementation.AuthenticationServiceImplTest" time="0.577"/>
-  <testcase name="signIn_everythingCorrect_returnsToken()" classname="ru.andrew.testapi.service.implementation.AuthenticationServiceImplTest" time="0.004"/>
-  <testcase name="signUp_emailExists_throwsException()" classname="ru.andrew.testapi.service.implementation.AuthenticationServiceImplTest" time="0.003"/>
-  <testcase name="signIn_incorrectUsernameOrPassword_throwsException()" classname="ru.andrew.testapi.service.implementation.AuthenticationServiceImplTest" time="0.004"/>
+  <testcase name="signUp_everythingCorrect_returnsToken()" classname="ru.andrew.testapi.service.implementation.AuthenticationServiceImplTest" time="0.591"/>
+  <testcase name="signIn_everythingCorrect_returnsToken()" classname="ru.andrew.testapi.service.implementation.AuthenticationServiceImplTest" time="0.002"/>
+  <testcase name="signUp_emailExists_throwsException()" classname="ru.andrew.testapi.service.implementation.AuthenticationServiceImplTest" time="0.004"/>
+  <testcase name="signIn_incorrectUsernameOrPassword_throwsException()" classname="ru.andrew.testapi.service.implementation.AuthenticationServiceImplTest" time="0.005"/>
   <testcase name="upgradeAccount_allCorrect_doesntThrowsException()" classname="ru.andrew.testapi.service.implementation.AuthenticationServiceImplTest" time="0.001"/>
   <testcase name="signUp_usernameExists_throwsException()" classname="ru.andrew.testapi.service.implementation.AuthenticationServiceImplTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>

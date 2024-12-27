@@ -1,7 +1,7 @@
 package ru.andrew.AIService.service.implementation;
 
-import org.apache.poi.extractor.ExtractorFactory;
-import org.apache.poi.extractor.POITextExtractor;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.stereotype.Service;
 import ru.andrew.AIService.service.interfaces.FileToTextConverterService;
 
@@ -12,8 +12,10 @@ import java.io.IOException;
 public class DocxToTextConverterService implements FileToTextConverterService {
     @Override
     public String convertToText(byte[] fileBody) throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(fileBody);
-        POITextExtractor extractor = ExtractorFactory.createExtractor(inputStream);
-        return extractor.getText();
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(fileBody)) {
+            XWPFDocument document = new XWPFDocument(bais);
+            XWPFWordExtractor extractor = new XWPFWordExtractor(document);
+            return extractor.getText();
+        }
     }
 }

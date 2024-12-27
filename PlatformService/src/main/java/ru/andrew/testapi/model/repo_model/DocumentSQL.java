@@ -17,6 +17,9 @@ public class DocumentSQL implements DatabaseDocument {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "filename", nullable = false)
+    private String filename;
+
     @Column(name = "filetype")
     private String filetype;
 
@@ -26,4 +29,8 @@ public class DocumentSQL implements DatabaseDocument {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserSQL user;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private DocumentStatus status;
 }

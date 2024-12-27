@@ -11,6 +11,6 @@ public interface UploadService {
                 return supportedType;
             }
         }
-        throw new RuntimeException("Неподдерживаемый тип файла");
+        throw new Exception("Неподдерживаемый тип файла");
     }
 }

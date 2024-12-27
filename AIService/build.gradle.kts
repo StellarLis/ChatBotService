@@ -29,7 +29,7 @@ dependencies {
     implementation("org.springframework.amqp:spring-rabbit:3.2.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.4.0")
     implementation("org.apache.pdfbox:pdfbox:2.0.7")
-    implementation("org.apache.poi:poi:5.3.0")
+    implementation("org.apache.poi:poi-ooxml:5.2.3")
 }
 
 tasks.test {

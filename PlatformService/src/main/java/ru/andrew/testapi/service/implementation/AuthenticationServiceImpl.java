@@ -5,16 +5,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.andrew.testapi.model.interfaces.DatabaseDocument;
 import ru.andrew.testapi.model.interfaces.DatabaseUser;
 import ru.andrew.testapi.model.repo_model.Role;
 import ru.andrew.testapi.model.service_model.ServiceUser;
 import ru.andrew.testapi.service.interfaces.AuthenticationService;
 import ru.andrew.testapi.service.interfaces.JwtService;
 import ru.andrew.testapi.repository.repo_service.UserService;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor

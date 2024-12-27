@@ -1,6 +1,6 @@
 spring:
   application:
-    name: testapi
+    name: platform_service
   datasource:
     url: jdbc:postgresql://${db_host}:5432/${db_name}
     username: postgres
